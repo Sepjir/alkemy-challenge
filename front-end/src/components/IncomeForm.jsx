@@ -10,14 +10,14 @@ const IncomeForm = () => {
             <div className="col-12 col-sm-6">
                     <form className=''>
                     <label className="form-label mt-2">Tipo:</label>
-                        <select name="type" id="" className="form-select">
+                        <select name="type" className="form-select">
                             <option value="1">Selecciona una opción</option>
                             <option value="2">Ingreso</option>
                             <option value="3">Egreso</option>
                         </select>
 
                         <label className="form-label mt-2">Categoría:</label>
-                        <select name="category" id="" className="form-select">
+                        <select name="category" className="form-select">
                             <option value="1">Selecciona una opción</option>
                             <option value="2">Comida</option>
                             <option value="3">Luz</option>

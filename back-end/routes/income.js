@@ -8,7 +8,7 @@ router
         
     })
     .post((req, res) => {
-
+        const {concept, amount, date, category, userId} = req.body
     })
 
 router
