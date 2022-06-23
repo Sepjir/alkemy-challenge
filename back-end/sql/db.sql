@@ -10,6 +10,11 @@ CREATE TABLE categories (
     category_name VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE types (
+    id SERIAL PRIMARY KEY,
+    name_type VARCHAR(255) NOT NULL
+);
+
 CREATE TABLE balance (
     id SERIAL PRIMARY KEY,
     user_id INT NOT NULL,
@@ -24,8 +29,10 @@ CREATE TABLE expenditures (
     expenditure_date DATE NOT NULL,
     category_id INT NOT NULL,
     user_id INT NOT NULL,
+    type_id INT NOT NULL,
     FOREIGN KEY(category_id) REFERENCES categories(id),
-    FOREIGN KEY(user_id) REFERENCES users(id)
+    FOREIGN KEY(user_id) REFERENCES users(id),
+    FOREIGN KEY(type_id) REFERENCES types(id)
 
 );
 
@@ -36,7 +43,9 @@ CREATE TABLE income (
     income_date DATE NOT NULL,
     category_id INT NOT NULL,
     user_id INT NOT NULL,
+    type_id INT NOT NULL,
     FOREIGN KEY(category_id) REFERENCES categories(id),
-    FOREIGN KEY(user_id) REFERENCES users(id)
+    FOREIGN KEY(user_id) REFERENCES users(id),
+    FOREIGN KEY(type_id) REFERENCES types(id)
 
 );
