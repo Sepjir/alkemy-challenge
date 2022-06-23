@@ -1,13 +1,11 @@
 import React from 'react'
-import Navbar from './Navbar'
 import Report from './Report'
 
-const Dashboard = () => {
+const IncomeForm = () => {
   return (
     <>
-    <Navbar/>
     <div className='container mt-5'>
-        <h3 className='text-center'>Formulario de Ingresos y Egresos</h3>
+        <h1 className='text-center'>Formulario de Ingresos y Egresos</h1>
         <div className="row">
             <div className="col-12 col-sm-6">
                     <form className=''>
@@ -28,7 +26,7 @@ const Dashboard = () => {
 
                         <label className="form-label">Cantidad:</label>
                         <input type="number" className="form-control" placeholder='Monto' />
-                        <button className="btn btn-primary mt-2">Enviar</button>
+                        <button type='submit' className="btn btn-primary mt-2">Enviar</button>
                     </form>
             </div>
             <div className="col-12 col-sm-6">
@@ -44,4 +42,4 @@ const Dashboard = () => {
   )
 }
 
-export default Dashboard
+export default IncomeForm
