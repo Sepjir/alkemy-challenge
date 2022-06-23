@@ -9,11 +9,19 @@ const RegistrationForm = () => {
                 <div className="col-12">
                     <form>
                     <label className="form-label">Nombre:</label>
-                    <input type="text" className='form-control' />
+                    <input type="text" name='name' className='form-control' />
+
+
                     <label className="form-label">Mail:</label>
-                    <input type="email" className='form-control' />
+                    <input type="email" name='email' className='form-control' />
+
+
                     <label className="form-label">Contraseña:</label>
-                    <input type="password" className='form-control' />
+                    <input type="password" name='password' className='form-control' />
+
+                    <label className="form-label">Repita su Contraseña:</label>
+                    <input type="password" name='password2' className='form-control' />
+
                     <button type='submit' className='mt-2 btn btn-outline-success'>Registrar</button>
                     </form>
                 </div>
