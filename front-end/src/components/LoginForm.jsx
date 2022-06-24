@@ -8,7 +8,7 @@ const LoginForm = () => {
   const [pass, setPass] = React.useState("")
   const [error, setError] = React.useState(null)
 
-  const iniciarSesion = async (e) => {
+  const validateData = async (e) => {
     e.preventDefault()
     if (!mail.trim()) {
       setError("Falta e-mail")
@@ -51,7 +51,7 @@ const LoginForm = () => {
                   </div>
                 )
               }
-                <form onSubmit={iniciarSesion}>
+                <form onSubmit={validateData}>
                   <label className="form-label">Mail</label>
                   <input type="email" name='mail' onChange={e => setMail(e.target.value)} value={mail} className='form-control' />
 

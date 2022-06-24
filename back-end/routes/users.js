@@ -1,6 +1,6 @@
 const express = require("express")
 const router = express.Router()
-const {add_user, get_users, get_user} = require("../querys/queryUser")
+const {add_user, get_users, get_user} = require("../queries/queryUser")
 
 router
     .route("/users")
