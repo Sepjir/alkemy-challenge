@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Modal from './Modal'
 
 const Report = () => {
 
@@ -10,22 +11,22 @@ const Report = () => {
 
     React.useEffect(() => {
         get_user_id()
-        get_income()
-        get_expenditure()
+        get_income(userid)
+        get_expenditure(userid)
     }, [userid])
 
-    const get_income = async () => {
+    const get_income = async (id) => {
         try {
-            const {data} = await axios.get(`http://localhost:5000/api/v1/income/${userid}`)
+            const {data} = await axios.get(`http://localhost:5000/api/v1/income/${id}`)
             setIncomeReport(data)
         } catch (e) {
             console.log(e)
         }
     }
 
-    const get_expenditure = async () => {
+    const get_expenditure = async (id) => {
         try {
-            const {data} = await axios.get(`http://localhost:5000/api/v1/expenditures/${userid}`)
+            const {data} = await axios.get(`http://localhost:5000/api/v1/expenditures/${id}`)
             setExpenditureReport(data)
         } catch (e) {
             console.log(e)
@@ -41,7 +42,7 @@ const Report = () => {
 
   return (
     <div className='container mt-5'>
-        <h3 className='text-center mb-3'>Reporte de Ingresos y Egresos</h3>
+        <h3 className='text-center mb-4'>Reporte de Ingresos y Egresos</h3>
         <div className='table-responsive'>
             <table className="table table-primary table-striped table-bordered">
                 <thead>
@@ -59,15 +60,23 @@ const Report = () => {
                     {
                         incomeReport && (
                             incomeReport.map((item, index) => (
-                                <tr key={index}>
-                                <th key={item.concept}>{item.concept}</th>
-                                <th key={item.category_name}>{item.category_name}</th>
-                                <th key={item.amount}>${item.amount.toLocaleString("es-CL")}</th>
-                                <th key={item.name_type}>{item.name_type}</th>
-                                <th key={item.to_char}>{item.to_char}</th>
-                                <th key={`${index}mod`}><button type="button" className="btn btn-warning btn-sm">Editar</button></th>
-                                <th key={`${index}el`}><button type="button" className="btn btn-danger btn-sm">Eliminar</button></th>
-                                </tr>
+                                <>
+                                    <tr key={index}>
+                                    <th key={item.concept}>{item.concept}</th>
+                                    <th key={item.category_name}>{item.category_name}</th>
+                                    <th key={item.amount}>${item.amount.toLocaleString("es-CL")}</th>
+                                    <th key={item.name_type}>{item.name_type}</th>
+                                    <th key={item.to_char}>{item.to_char}</th>
+                                    <th key={`${index}mod`}><button type="button" data-bs-toggle="modal" data-bs-target={`#idi${index}`} className="btn btn-warning btn-sm">Editar</button></th>
+                                    <th key={`${index}el`}><button type="button"  className="btn btn-danger btn-sm">Eliminar</button></th>
+                                    </tr>
+                                    
+                                    
+                                    <Modal id={`idi${index}`} content={[item.id, item.concept, item.amount, item.name_type, userid]}/>
+
+                                </>
+
+                                
                             ))
                         )
                     }
@@ -92,15 +101,22 @@ const Report = () => {
                     {
                         expenditureReport && (
                             expenditureReport.map((item, index) => (
+
+                                <>
                                 <tr key={index}>
                                 <th key={item.concept}>{item.concept}</th>
                                 <th key={item.category_name}>{item.category_name}</th>
                                 <th key={item.amount}>${item.amount.toLocaleString("es-CL")}</th>
                                 <th key={item.name_type}>{item.name_type}</th>
                                 <th key={item.to_char}>{item.to_char}</th>
-                                <th key={`${index}mod`}><button type="button" className="btn btn-warning btn-sm">Editar</button></th>
+                                <th key={`${index}mod`}><button type="button" className="btn btn-warning btn-sm"  data-bs-toggle="modal" data-bs-target={`#ide${index}`}>Editar</button></th>
                                 <th key={`${index}el`}><button type="button" className="btn btn-danger btn-sm">Eliminar</button></th>
                                 </tr>
+
+                                <Modal id={`ide${index}`} content={[item.id, item.concept, item.amount, item.name_type, userid]}/>
+                                </>
+
+
                             ))
                         )
                     }

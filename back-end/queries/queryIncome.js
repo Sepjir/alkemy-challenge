@@ -11,7 +11,7 @@ async function get_income(id) {
         [`${id}`])
         return result.rows
     } catch (e) {
-        return e
+        return console.log(e)
     }
 }
 
@@ -22,8 +22,18 @@ async function add_income(concept, amount, date, category, userid) {
         )
         return result.rows
     } catch (e) {
-        return e
+        return console.log(e)
     }
 }
 
-module.exports = {get_income, add_income}
+
+async function mod_income(id, concept, amount) {
+    try {
+        const result = await pool.query("UPDATE income SET amount = $3, concept =$2 WHERE id = $1 RETURNING*;",
+        [`${id}`,`${concept}`,`${amount}`])
+    } catch (e) {
+       return console.log(e)
+    }
+}
+
+module.exports = {get_income, add_income, mod_income}

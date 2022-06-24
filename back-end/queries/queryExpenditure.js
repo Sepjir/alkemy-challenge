@@ -16,5 +16,14 @@ async function add_expenditure(concept, amount, date, category, userid) {
     }
 }
 
+async function mod_expenditure(id, concept, amount) {
+    try {
+        const result = await pool.query("UPDATE expenditures SET amount = $3, concept =$2 WHERE id = $1 RETURNING*;",
+        [`${id}`,`${concept}`,`${amount}`])
+    } catch (e) {
+       return console.log(e)
+    }
+}
 
-module.exports = {add_expenditure}
+
+module.exports = {add_expenditure, mod_expenditure}

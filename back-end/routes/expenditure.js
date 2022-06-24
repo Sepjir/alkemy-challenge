@@ -10,4 +10,11 @@ router
         res.status(200).send(response)
     })
 
+
+    router
+    .route("/expenditures")
+    .get((req, res) => {
+        
+    })
+
 module.exports = router
