@@ -42,7 +42,6 @@ const IncomeForm = () => {
         const parse = JSON.parse(user)
         const {data} = await axios.get(`http://localhost:5000/api/v1/balance/${parse[0].id}`)
         setBalance(data)
-        console.log(balance)
     }
     
   return (

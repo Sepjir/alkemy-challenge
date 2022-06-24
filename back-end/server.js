@@ -5,6 +5,7 @@ const port = process.env.PORT || 5000
 const users = require("./routes/users")
 const balance = require("./routes/balance")
 const incomes = require("./routes/income")
+const expenditures = require("./routes/expenditure")
 const types = require("./routes/type")
 const categories = require("./routes/category")
 app.use(cors())
@@ -23,6 +24,9 @@ app.use("/api/v1", incomes)
 
 // income route
 app.use("/api/v1", balance)
+
+// expenditure route
+app.use("/api/v1", expenditures)
 
 // type route
 app.use("/api/v1", types)

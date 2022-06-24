@@ -3,12 +3,14 @@ const router = express.Router()
 const {get_balance, add_balance, get_balance_user, balance_addition, balance_discount} = require("../queries/queryBalance")
 const {add_income} = require("../queries/queryIncome")
 const {add_expenditure} = require("../queries/queryExpenditure")
+const {report_income} = require("../queries/queryReport")
 
 
 router
     .route("/income")
-    .get((req, res) => {
-        
+    .get(async (req, res) => {
+        const response = await report_income()
+        res.status(200).send(response)
     })
     .post(async (req, res) => {
         const {type, concept, amount, date, category, userid} = req.body
