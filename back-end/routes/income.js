@@ -7,11 +7,7 @@ const {report_income} = require("../queries/queryReport")
 
 
 router
-    .route("/income")
-    .get(async (req, res) => {
-        const response = await report_income()
-        res.status(200).send(response)
-    })
+    .route("/income/")
     .post(async (req, res) => {
         const {type, concept, amount, date, category, userid} = req.body
         const balance =  await get_balance()
@@ -56,6 +52,11 @@ router
 
 router
     .route("/income/:id")
+    .get(async (req, res) => {
+        const {id} = req.params
+        const response = await report_income(id)
+        res.status(200).send(response)
+    })
     .put((req, res) => {
 
     })

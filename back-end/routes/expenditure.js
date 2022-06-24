@@ -3,9 +3,10 @@ const router = express.Router()
 const {report_expenditure} = require("../queries/queryReport")
 
 router
-    .route("/expenditures")
+    .route("/expenditures/:id")
     .get(async (req, res) => {
-        const response = await report_expenditure()
+        const {id} = req.params
+        const response = await report_expenditure(id)
         res.status(200).send(response)
     })
 
