@@ -36,4 +36,13 @@ async function mod_income(id, concept, amount) {
     }
 }
 
-module.exports = {get_income, add_income, mod_income}
+async function delete_income(id) {
+    try {
+        const result = await pool.query("DELETE FROM income WHERE id = $1;",
+        [`${id}`])
+    } catch (e) {
+       return console.log(e)
+    }
+}
+
+module.exports = {get_income, add_income, mod_income, delete_income}

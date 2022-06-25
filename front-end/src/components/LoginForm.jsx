@@ -1,9 +1,8 @@
 import React from 'react'
-import {Link, useNavigate} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import axios from 'axios'
 
 const LoginForm = () => {
-  const navigate = useNavigate()
   const [mail, setMail] = React.useState("")
   const [pass, setPass] = React.useState("")
   const [error, setError] = React.useState(null)
@@ -15,6 +14,7 @@ const LoginForm = () => {
       return
     }if (!pass.trim()) {
       setError("Falta contraseña")
+      return
     }
     setError(null)
     setMail("")
@@ -28,12 +28,13 @@ const LoginForm = () => {
       const {data} = await axios.get(`http://localhost:5000/api/v1/user/${mail}`)
       if (data[0].mail === mail && data[0].pass === pass) {
         localStorage.setItem("usuario", JSON.stringify(data))
-        navigate("/dashboard")
-      }
+        window.location.href = "/dashboard"
+        return
+      } 
     } catch (e) {
       console.log(e)
     }
-  }, [mail, pass, navigate])
+  }, [mail, pass])
 
 
   return (

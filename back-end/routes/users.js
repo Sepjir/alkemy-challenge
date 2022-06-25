@@ -18,7 +18,7 @@ router
         try {
             await add_user(name, email, password)
             console.log(`Usuario ${name} registrado`)
-            res.status(200).redirect("http://localhost:3000/register")
+            res.status(200).redirect("http://localhost:3000/login")
         } catch (error) {
             console.log(error)
         }

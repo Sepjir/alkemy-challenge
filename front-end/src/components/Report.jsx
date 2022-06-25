@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React from 'react'
-import { Link } from 'react-router-dom'
 import Modal from './Modal'
+import { v4 as uuidv4 } from 'uuid';
 
 const Report = () => {
 
@@ -44,7 +44,7 @@ const Report = () => {
     <div className='container mt-5'>
         <h3 className='text-center mb-4'>Reporte de Ingresos y Egresos</h3>
         <div className='table-responsive'>
-            <table className="table table-primary table-striped table-bordered">
+            <table className="text-center table table-primary table-striped table-bordered">
                 <thead>
                     <tr>
                     <th scope="col">Concepto</th>
@@ -53,29 +53,23 @@ const Report = () => {
                     <th scope="col">Tipo</th>
                     <th scope="col">Fecha</th>
                     <th scope="col">Editar</th>
-                    <th scope="col">Eliminar</th>
+                    <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
                     {
                         incomeReport && (
                             incomeReport.map((item, index) => (
-                                <>
-                                    <tr key={index}>
-                                    <th key={item.concept}>{item.concept}</th>
-                                    <th key={item.category_name}>{item.category_name}</th>
-                                    <th key={item.amount}>${item.amount.toLocaleString("es-CL")}</th>
-                                    <th key={item.name_type}>{item.name_type}</th>
-                                    <th key={item.to_char}>{item.to_char}</th>
-                                    <th key={`${index}mod`}><button type="button" data-bs-toggle="modal" data-bs-target={`#idi${index}`} className="btn btn-warning btn-sm">Editar</button></th>
-                                    <th key={`${index}el`}><button type="button"  className="btn btn-danger btn-sm">Eliminar</button></th>
+                                    <tr key={uuidv4()}>
+                                    <th key={uuidv4()}>{item.concept}</th>
+                                    <th key={uuidv4()}>{item.category_name}</th>
+                                    <th key={uuidv4()}>${item.amount.toLocaleString("es-CL")}</th>
+                                    <th key={uuidv4()}>{item.name_type}</th>
+                                    <th key={uuidv4()}>{item.to_char}</th>
+                                    <th key={uuidv4()}><button type="button" data-bs-toggle="modal" data-bs-target={`#idi${index}`} className="btn btn-warning btn-sm">Editar</button>
+                                    </th>
+                                    <Modal key={uuidv4()} id={`idi${index}`} content={[item.id, item.concept, item.amount, item.name_type, userid]}/>
                                     </tr>
-                                    
-                                    
-                                    <Modal id={`idi${index}`} content={[item.id, item.concept, item.amount, item.name_type, userid]}/>
-
-                                </>
-
                                 
                             ))
                         )
@@ -85,7 +79,7 @@ const Report = () => {
         </div>
         
         <div className='table-responsive'>
-            <table className=" mt-2 table table-danger table-striped table-bordered">
+            <table className="text-center mt-2 table table-danger table-striped table-bordered">
                 <thead>
                     <tr>
                     <th scope="col">Concepto</th>
@@ -94,37 +88,28 @@ const Report = () => {
                     <th scope="col">Tipo</th>
                     <th scope="col">Fecha</th>
                     <th scope="col">Editar</th>
-                    <th scope="col">Eliminar</th>
+                    <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
                     {
                         expenditureReport && (
                             expenditureReport.map((item, index) => (
-
-                                <>
-                                <tr key={index}>
-                                <th key={item.concept}>{item.concept}</th>
-                                <th key={item.category_name}>{item.category_name}</th>
-                                <th key={item.amount}>${item.amount.toLocaleString("es-CL")}</th>
-                                <th key={item.name_type}>{item.name_type}</th>
-                                <th key={item.to_char}>{item.to_char}</th>
-                                <th key={`${index}mod`}><button type="button" className="btn btn-warning btn-sm"  data-bs-toggle="modal" data-bs-target={`#ide${index}`}>Editar</button></th>
-                                <th key={`${index}el`}><button type="button" className="btn btn-danger btn-sm">Eliminar</button></th>
+                                <tr key={uuidv4()}>
+                                <th key={uuidv4()}>{item.concept}</th>
+                                <th key={uuidv4()}>{item.category_name}</th>
+                                <th key={uuidv4()}>${item.amount.toLocaleString("es-CL")}</th>
+                                <th key={uuidv4()}>{item.name_type}</th>
+                                <th key={uuidv4()}>{item.to_char}</th>
+                                <th key={uuidv4()}><button type="button" className="btn btn-warning btn-sm"  data-bs-toggle="modal" data-bs-target={`#ide${index}`}>Editar</button></th>
+                                <Modal id={uuidv4()} content={[item.id, item.concept, item.amount, item.name_type, userid]}/>
                                 </tr>
-
-                                <Modal id={`ide${index}`} content={[item.id, item.concept, item.amount, item.name_type, userid]}/>
-                                </>
-
 
                             ))
                         )
                     }
                 </tbody>
             </table>
-        </div>
-        <div className='container d-flex justify-content-center'>
-            <Link type='button' to="/" className="btn btn-secondary">Volver</Link>
         </div>
     </div>
   )

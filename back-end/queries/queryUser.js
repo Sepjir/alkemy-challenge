@@ -21,7 +21,7 @@ async function get_users() {
         const result = await pool.query("SELECT * FROM users;")
         return result.rows
     } catch (e) {
-        return e
+        return console.log(e)
     }
 }
 

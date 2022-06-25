@@ -1,7 +1,7 @@
 const express = require("express")
 const router = express.Router()
 const {get_balance, add_balance, get_balance_user, balance_addition, balance_discount} = require("../queries/queryBalance")
-const {add_income, mod_income} = require("../queries/queryIncome")
+const {add_income, mod_income, delete_income} = require("../queries/queryIncome")
 const {add_expenditure, mod_expenditure} = require("../queries/queryExpenditure")
 const {report_income} = require("../queries/queryReport")
 
@@ -63,7 +63,6 @@ router
     .post(async (req, res) => {
         const {id} = req.params
         const {concept, amount, originValue, nameType, userid} = req.body
-        console.log(id, concept, amount, originValue, nameType, userid)
         const differential = amount - originValue
 
         if (nameType == "Ingreso") {
@@ -111,8 +110,19 @@ router
             }
         }
     })
-    .delete((req, res) => {
+    .delete( async (req, res) => {
+        const {id} = req.params
+        const {userid, amount} = req.body
+        console.log(id, userid, amount)
+
+        try {
+            await delete_income(id)
+            await balance_discount(userid, amount)
+            res.status(200).send("http://localhost:3000/dashboard")
         
+        } catch (e) {
+            console.log(e)
+        }
     })
 
 
