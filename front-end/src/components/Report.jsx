@@ -101,8 +101,9 @@ const Report = () => {
                                 <th key={uuidv4()}>${item.amount.toLocaleString("es-CL")}</th>
                                 <th key={uuidv4()}>{item.name_type}</th>
                                 <th key={uuidv4()}>{item.to_char}</th>
-                                <th key={uuidv4()}><button type="button" className="btn btn-warning btn-sm"  data-bs-toggle="modal" data-bs-target={`#ide${index}`}>Editar</button></th>
-                                <Modal id={uuidv4()} content={[item.id, item.concept, item.amount, item.name_type, userid]}/>
+                                <th key={uuidv4()}><button type="button" className="btn btn-warning btn-sm"  data-bs-toggle="modal" data-bs-target={`#ide${index}`}>Editar</button>
+                                </th>
+                                <Modal key={uuidv4()} id={`ide${index}`} content={[item.id, item.concept, item.amount, item.name_type, userid]}/>
                                 </tr>
 
                             ))

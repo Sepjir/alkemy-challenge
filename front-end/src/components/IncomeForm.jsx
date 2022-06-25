@@ -1,6 +1,7 @@
 import React from 'react'
 import Report from './Report'
 import axios from 'axios'
+import moment from 'moment'
 
 
 const IncomeForm = () => {
@@ -9,6 +10,7 @@ const IncomeForm = () => {
     const [type2, setType2] = React.useState("1")
     const [category, setCategory] = React.useState([])
     const [balance, setBalance] = React.useState([])
+    const [date, setDate] = React.useState(moment(Date.now()).format('YYYY-MM-DD'))
     const [error, setError] = React.useState("")
 
     React.useEffect(() => {
@@ -84,7 +86,7 @@ const IncomeForm = () => {
                         <input className='form-control' name='concept' type="text" required/>
 
                         <label className="form-label">Fecha:</label>
-                        <input type="date" name='date' className="form-control" required/>
+                        <input type="date" name='date' onChange={e => setDate(e.target.value)} value={date} className="form-control" required/>
 
                         <label className="form-label">Cantidad:</label>
                         <input type="number" name='amount' className="form-control" placeholder='Monto' min="0" required/>

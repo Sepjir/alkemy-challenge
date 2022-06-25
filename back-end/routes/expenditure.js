@@ -6,8 +6,12 @@ router
     .route("/expenditures/:id")
     .get(async (req, res) => {
         const {id} = req.params
-        const response = await report_expenditure(id)
-        res.status(200).send(response)
+        try {
+            const response = await report_expenditure(id)
+            res.status(200).send(response)
+        } catch (e) {
+            console.log(e)
+        }
     })
 
 

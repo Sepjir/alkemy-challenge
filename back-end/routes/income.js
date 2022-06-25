@@ -1,8 +1,8 @@
 const express = require("express")
 const router = express.Router()
-const {get_balance, add_balance, get_balance_user, balance_addition, balance_discount} = require("../queries/queryBalance")
+const {get_balance, add_balance, balance_addition, balance_discount} = require("../queries/queryBalance")
 const {add_income, mod_income, delete_income} = require("../queries/queryIncome")
-const {add_expenditure, mod_expenditure} = require("../queries/queryExpenditure")
+const {add_expenditure, mod_expenditure, delete_expenditure} = require("../queries/queryExpenditure")
 const {report_income} = require("../queries/queryReport")
 
 
@@ -57,8 +57,12 @@ router
     .route("/income/:id")
     .get(async (req, res) => {
         const {id} = req.params
-        const response = await report_income(id)
-        res.status(200).send(response)
+        try {
+            const response = await report_income(id)
+            res.status(200).send(response)
+        } catch (e) {
+            console.log(e)
+        }
     })
     .post(async (req, res) => {
         const {id} = req.params
@@ -80,6 +84,14 @@ router
                     const diff = originValue - amount
                     await mod_income(id, concept, amount)
                     await balance_discount(userid, diff)
+                    res.status(200).redirect("http://localhost:3000/dashboard")
+                    
+                } catch (e) {
+                    console.log(e)
+                }
+            } if (differential == 0) {
+                try {
+                    await mod_income(id, concept, amount)
                     res.status(200).redirect("http://localhost:3000/dashboard")
                     
                 } catch (e) {
@@ -107,22 +119,40 @@ router
                 } catch (e) {
                     console.log(e)
                 }
+            }if (differential == 0) {
+                try {
+                    await mod_expenditure(id, concept, amount)
+                    res.status(200).redirect("http://localhost:3000/dashboard")
+                    
+                } catch (e) {
+                    console.log(e)
+                }
             }
         }
     })
     .delete( async (req, res) => {
         const {id} = req.params
-        const {userid, amount} = req.body
-        console.log(id, userid, amount)
-
-        try {
-            await delete_income(id)
-            await balance_discount(userid, amount)
-            res.status(200).send("http://localhost:3000/dashboard")
-        
-        } catch (e) {
-            console.log(e)
+        const {userid, amount, typeName} = req.body
+        console.log(userid, amount, typeName)
+        if (typeName === "Ingreso") {
+            try {
+                await delete_income(id)
+                await balance_discount(userid, amount)
+                res.status(200).send("http://localhost:3000/dashboard")
+            
+            } catch (e) {
+                console.log(e)
+            } 
+        } else {
+            try {
+                await delete_expenditure(id)
+                await balance_addition(userid, amount)
+                res.status(200).send("http://localhost:3000/dashboard")
+            } catch (e) {
+                console.log(e)
+            }
         }
+
     })
 
 

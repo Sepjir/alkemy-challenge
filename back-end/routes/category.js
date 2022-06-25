@@ -7,8 +7,12 @@ const { get_categories } = require("../queries/queryCategory")
 router
     .route("/categories")
     .get(async (req, res) => {
-        const response =  await get_categories()
-        res.status(200).send(response)
+        try {
+            const response =  await get_categories()
+            res.status(200).send(response)
+        } catch (e) {
+            console.log(e)
+        }
     })
 
 

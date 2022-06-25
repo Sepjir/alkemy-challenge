@@ -25,5 +25,14 @@ async function mod_expenditure(id, concept, amount) {
     }
 }
 
+async function delete_expenditure(id) {
+    try {
+        const result = await pool.query("DELETE FROM expenditures WHERE id = $1;",
+        [`${id}`])
+    } catch (e) {
+       return console.log(e)
+    }
+}
 
-module.exports = {add_expenditure, mod_expenditure}
+
+module.exports = {add_expenditure, mod_expenditure, delete_expenditure}

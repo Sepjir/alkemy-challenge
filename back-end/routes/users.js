@@ -7,7 +7,10 @@ router
     .get(async (req, res) => {
         try {
             const response = await get_users()
-            res.status(200).send(response)
+            const mapResponse = response.map((u) => {
+                return {...u, "balance": `http://localhost:5000/api/v1/balance/${u.id}`, "income": `http://localhost:5000/api/v1/income/${u.id}`, "expenditure": `http://localhost:5000/api/v1/expenditures/${u.id}`}
+            })
+            res.status(200).send(mapResponse)
 
         } catch (error) {
             console.log(error)
@@ -24,9 +27,6 @@ router
         }
 
     })
-    .put((req, res) => {
-
-    });
 
 router
     .route("/user/:id")
@@ -39,9 +39,6 @@ router
         } catch (error) {
             console.log(error)
         }
-    })
-    .delete((req, res) => {
-        
     })    
 
 module.exports = router
