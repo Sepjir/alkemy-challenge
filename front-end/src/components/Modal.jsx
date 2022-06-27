@@ -6,19 +6,38 @@ const Modal = ({id, content}) => {
     const [concept, setConcept] = React.useState(content[1])
     const [amount, setAmount] = React.useState(content[2])
 
+    const uri = "https://ignacio-finanzas-app.herokuapp.com/"
+    const uriLocal = "http://localhost:5000/"
+
     const deleteIncomeExpenditure = async (id) => {
-            await axios.delete(`http://localhost:5000/api/v1/income/${id}`, {data: {
+            await axios.delete(`${uri}api/v1/income/${id}`, {data: {
             userid: content[4],
             amount: content[2],
             typeName: content[3]
         }}).then(() => {
-            window.location.href = "http://localhost:3000/dashboard"
+            window.location.href = "/dashboard"
         }).catch((e) => {
             console.log(e)
         })
 
     }
 
+    const modIncomesExpenditures = async (e, id) => {
+        e.preventDefault()
+        await axios.put(`${uri}api/v1/income/${id}`, {data: {
+            userid: content[4],
+            nameType: content[3],
+            originValue: content[2],
+            concept: concept,
+            amount: amount
+
+        }}).then(() => {
+            window.location.href = "/dashboard"
+        }).catch((e) => {
+            console.log(e)
+        })
+    }
+ 
 
 
   return (
@@ -31,7 +50,7 @@ const Modal = ({id, content}) => {
                         <button  type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div  className="modal-body">
-                        <form  action={`http://localhost:5000/api/v1/income/${content[0]}`} method='POST'>
+                        <form  onSubmit={(e) => modIncomesExpenditures(e,`${content[0]}`)}>
                             <label className="form-label">Concepto:</label>
                             <input type="text" className='form-control' name='concept' onChange={e =>setConcept(e.target.value)} value={concept} />
                             <label className="form-label">Monto:</label>

@@ -9,6 +9,9 @@ const Report = () => {
     const [expenditureReport, setExpenditureReport] = React.useState([])
     const [userid, setUserId] = React.useState("")
 
+    const uri = "https://ignacio-finanzas-app.herokuapp.com/"
+    const uriLocal = "http://localhost:5000/"
+
     React.useEffect(() => {
         get_user_id()
         get_income(userid)
@@ -17,7 +20,7 @@ const Report = () => {
 
     const get_income = async (id) => {
         try {
-            const {data} = await axios.get(`http://localhost:5000/api/v1/income/${id}`)
+            const {data} = await axios.get(`${uri}api/v1/income/${id}`)
             setIncomeReport(data)
         } catch (e) {
             console.log(e)
@@ -26,7 +29,7 @@ const Report = () => {
 
     const get_expenditure = async (id) => {
         try {
-            const {data} = await axios.get(`http://localhost:5000/api/v1/expenditures/${id}`)
+            const {data} = await axios.get(`${uri}api/v1/expenditures/${id}`)
             setExpenditureReport(data)
         } catch (e) {
             console.log(e)

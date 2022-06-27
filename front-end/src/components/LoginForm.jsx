@@ -2,10 +2,16 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import axios from 'axios'
 
+
 const LoginForm = () => {
   const [mail, setMail] = React.useState("")
   const [pass, setPass] = React.useState("")
   const [error, setError] = React.useState(null)
+
+  const uri = "https://ignacio-finanzas-app.herokuapp.com/"
+  const uriLocal = "http://localhost:5000/"
+
+
 
   const validateData = async (e) => {
     e.preventDefault()
@@ -25,7 +31,7 @@ const LoginForm = () => {
 
   const login = React.useCallback(async () => {
     try {
-      const {data} = await axios.get(`http://localhost:5000/api/v1/user/${mail}`)
+      const {data} = await axios.get(`${uri}api/v1/user/${mail}`)
       if (data[0].mail === mail && data[0].pass === pass) {
         localStorage.setItem("usuario", JSON.stringify(data))
         window.location.href = "/dashboard"
